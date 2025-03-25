@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Node.js File Serving</title>
-    
+    <title>Node.js File Upload Server</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,15 +18,52 @@
             color: #4caf50;
         }
 
-        img {
+        form {
             margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
+
 <body>
-    <h1>Welcome to Node.js File Serving</h1>
-    <p>This is a demo of serving multiple static files.</p>
+    <h1>Node.js File Upload</h1>
+    <p>Upload your file below (Images only).</p>
+
+    <!-- File upload form -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload File</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        // Display success message after upload
+        const params = new URLSearchParams(window.location.search);
+        const message = params.get('message');
+        if (message) {
+            document.getElementById('message').innerText = decodeURIComponent(message);
+        }
+    </script>
 </body>
 </html>
